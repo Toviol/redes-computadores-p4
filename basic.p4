@@ -4,6 +4,7 @@
 #include <v1model.p4>
 
 const bit<16> TYPE_IPV4 = 0x800;
+const bit<8> PROTOCOL_TCP = 6;
 
 /*************************************************************************
 *********************** H E A D E R S  ***********************************
@@ -113,7 +114,13 @@ control MyIngress(inout headers hdr,
 
     apply {
         if (hdr.ipv4.isValid()) {
-            ipv4_lpm.apply();
+            // dropar pacotes TCP (protocolo 6)
+            if (hdr.ipv4.protocol == PROTOCOL_TCP) {
+                drop();
+            } else {
+                // encaminhar ICMP, UDP e outros protocolos normalmente
+                ipv4_lpm.apply();
+            }
         }
     }
 }
