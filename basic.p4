@@ -5,6 +5,8 @@
 
 const bit<16> TYPE_IPV4 = 0x800;
 const bit<8> PROTOCOL_TCP = 6;
+const bit<8> PROTOCOL_UDP = 17;
+const bit<8> PROTOCOL_ICMP = 1;
 
 /*************************************************************************
 *********************** H E A D E R S  ***********************************
@@ -93,10 +95,12 @@ control MyIngress(inout headers hdr,
     }
 
     action ipv4_forward(macAddr_t dstAddr, egressSpec_t port) {
-        standard_metadata.egress_spec = port;
-        hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
-        hdr.ethernet.dstAddr = dstAddr;
-        hdr.ipv4.ttl = hdr.ipv4.ttl - 1;
+        if(hdr.ipv4.protocol == PROTOCOL_UDP) {
+            standard_metadata.egress_spec = port;
+            hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
+            hdr.ethernet.dstAddr = dstAddr;
+            hdr.ipv4.ttl = hdr.ipv4.ttl - 1;
+        }
     }
 
     table ipv4_lpm {
