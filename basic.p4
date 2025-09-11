@@ -95,11 +95,14 @@ control MyIngress(inout headers hdr,
     }
 
     action ipv4_forward(macAddr_t dstAddr, egressSpec_t port) {
+        standard_metadata.egress_spec = port;
+        hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
+        hdr.ethernet.dstAddr = dstAddr;
+        
         if(hdr.ipv4.protocol == PROTOCOL_UDP) {
-            standard_metadata.egress_spec = port;
-            hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
-            hdr.ethernet.dstAddr = dstAddr;
-            hdr.ipv4.ttl = hdr.ipv4.ttl - 1;
+            hdr.ipv4.ttl = hdr.ipv4.ttl - 1; // DECREMENTAR TTL APENAS DE UDP
+        } else if(hdr.ipv4.protocol == PROTOCOL_ICMP) { 
+            hdr.ipv4.diffserv = 0xB8; // MARCAR PACOTES ICMP COM DSCP DIFERENTE (VALOR 46)
         }
     }
 
@@ -118,8 +121,7 @@ control MyIngress(inout headers hdr,
 
     apply {
         if (hdr.ipv4.isValid()) {
-            // dropar pacotes TCP (protocolo 6)
-            if (hdr.ipv4.protocol == PROTOCOL_TCP) {
+            if (hdr.ipv4.protocol == PROTOCOL_TCP) { // DROPANDO PACOTES TCP
                 drop();
             } else {
                 // encaminhar ICMP, UDP e outros protocolos normalmente
