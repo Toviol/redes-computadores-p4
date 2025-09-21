@@ -19,7 +19,7 @@
     },
     "switches": {
         "s1": {
-            "runtime_json": "tobias-topo/s1-runtime.json"
+            "runtime_json": "trabalho1-topo/s1-runtime.json"
         }
     },
     "links": [

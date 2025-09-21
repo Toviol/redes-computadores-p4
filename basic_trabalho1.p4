@@ -4,9 +4,6 @@
 #include <v1model.p4>
 
 const bit<16> TYPE_IPV4 = 0x800;
-const bit<8> PROTOCOL_TCP = 6;
-const bit<8> PROTOCOL_UDP = 17;
-const bit<8> PROTOCOL_ICMP = 1;
 
 /*************************************************************************
 *********************** H E A D E R S  ***********************************
@@ -98,12 +95,38 @@ control MyIngress(inout headers hdr,
         standard_metadata.egress_spec = port;
         hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
         hdr.ethernet.dstAddr = dstAddr;
-        
-        if(hdr.ipv4.protocol == PROTOCOL_UDP) {
-            hdr.ipv4.ttl = hdr.ipv4.ttl - 1; // DECREMENTAR TTL APENAS DE UDP
-        } else if(hdr.ipv4.protocol == PROTOCOL_ICMP) { 
-            hdr.ipv4.diffserv = 0xB8; // MARCAR PACOTES ICMP COM DSCP DIFERENTE (VALOR 46)
+    }
+
+    // ***** ACOES DO PROTOCOLO ******
+    action protocol_drop() {
+        mark_to_drop(standard_metadata); // avisa switch pra dropar o TCP
+    }
+
+    action protocol_forward() {
+        // nao faz nada, mas depois ele vai pra table ipv4_lpm
+    }
+
+    action protocol_mark_dscp(bit<8> dscp_value) {
+        hdr.ipv4.diffserv = dscp_value; // marca DSCP no ICMP
+    }
+
+    action protocol_decrement_ttl() {
+        hdr.ipv4.ttl = hdr.ipv4.ttl - 1; // decrementa TTL do UDP
+    }
+
+    table protocol_control {
+        key = {
+            hdr.ipv4.protocol: exact;
         }
+        actions = {
+            protocol_drop;
+            protocol_forward;
+            protocol_mark_dscp;
+            protocol_decrement_ttl;
+            NoAction;
+        }
+        size = 256;
+        default_action = protocol_forward(); // essa eh a default, quando o .json coloca na outra tabela
     }
 
     table ipv4_lpm {
@@ -121,11 +144,13 @@ control MyIngress(inout headers hdr,
 
     apply {
         if (hdr.ipv4.isValid()) {
-            if (hdr.ipv4.protocol == PROTOCOL_TCP) { // DROPANDO PACOTES TCP
-                drop();
-            } else {
-                // encaminhar ICMP, UDP e outros protocolos normalmente
-                ipv4_lpm.apply();
+            switch (protocol_control.apply().action_run) { // aplica a nova tabela e pega a acao feita
+                protocol_drop: {
+                    return; // caso a acao seja drop (TCP), ele nao aplica a outra tabela
+                }
+                default: {
+                    ipv4_lpm.apply(); // quaisquer outra acao, continua normalmente
+                }
             }
         }
     }
