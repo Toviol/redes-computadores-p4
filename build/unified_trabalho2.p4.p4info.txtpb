@@ -1,0 +1,201 @@
+# proto-file: p4/config/v1/p4info.proto
+# proto-message: p4.config.v1.P4Info
+
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 42117758
+    name: "MyIngress.switch_config"
+    alias: "switch_config"
+  }
+  match_fields {
+    id: 1
+    name: "standard_metadata.ingress_port"
+    bitwidth: 9
+    match_type: EXACT
+  }
+  action_refs {
+    id: 23023441
+  }
+  initial_default_action {
+    action_id: 23023441
+    arguments {
+      param_id: 1
+      value: "\000"
+    }
+  }
+  size: 16
+}
+tables {
+  preamble {
+    id: 45696006
+    name: "MyIngress.protocol_filter"
+    alias: "protocol_filter"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.protocol"
+    bitwidth: 8
+    match_type: EXACT
+  }
+  action_refs {
+    id: 17724422
+  }
+  action_refs {
+    id: 25652968
+  }
+  initial_default_action {
+    action_id: 25652968
+  }
+  size: 256
+}
+tables {
+  preamble {
+    id: 37375156
+    name: "MyIngress.ipv4_lpm"
+    alias: "ipv4_lpm"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 28792405
+  }
+  action_refs {
+    id: 25652968
+  }
+  action_refs {
+    id: 21257015
+  }
+  initial_default_action {
+    action_id: 25652968
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 49259627
+    name: "MyIngress.dscp_routing"
+    alias: "dscp_routing"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.diffserv"
+    bitwidth: 8
+    match_type: TERNARY
+  }
+  match_fields {
+    id: 2
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 28792405
+  }
+  action_refs {
+    id: 25652968
+  }
+  action_refs {
+    id: 21257015
+  }
+  initial_default_action {
+    action_id: 21257015
+  }
+  size: 1024
+}
+actions {
+  preamble {
+    id: 21257015
+    name: "NoAction"
+    alias: "NoAction"
+    annotations: "@noWarn(\"unused\")"
+  }
+}
+actions {
+  preamble {
+    id: 25652968
+    name: "MyIngress.drop"
+    alias: "drop"
+  }
+}
+actions {
+  preamble {
+    id: 17724422
+    name: "MyIngress.allow"
+    alias: "allow"
+  }
+}
+actions {
+  preamble {
+    id: 28792405
+    name: "MyIngress.ipv4_forward"
+    alias: "ipv4_forward"
+  }
+  params {
+    id: 1
+    name: "dstAddr"
+    bitwidth: 48
+  }
+  params {
+    id: 2
+    name: "port"
+    bitwidth: 9
+  }
+}
+actions {
+  preamble {
+    id: 18755093
+    name: "MyIngress.mark_dscp"
+    alias: "mark_dscp"
+  }
+}
+actions {
+  preamble {
+    id: 23023441
+    name: "MyIngress.set_switch_id"
+    alias: "set_switch_id"
+  }
+  params {
+    id: 1
+    name: "switch_id"
+    bitwidth: 1
+  }
+}
+registers {
+  preamble {
+    id: 375868582
+    name: "MyIngress.flow_last_seen"
+    alias: "flow_last_seen"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 48
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 385308762
+    name: "MyIngress.flow_byte_count"
+    alias: "flow_byte_count"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+type_info {
+}

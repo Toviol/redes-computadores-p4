@@ -1,7 +1,7 @@
 {
   "target": "bmv2",
-  "p4info": "build/basic_trabalho2.p4.p4info.txtpb",
-  "bmv2_json": "build/basic_trabalho2.json",
+  "p4info": "build/s1_trabalho2.p4.p4info.txtpb",
+  "bmv2_json": "build/s1_trabalho2.json",
   "table_entries": [
     {
       "table": "MyIngress.protocol_filter",
