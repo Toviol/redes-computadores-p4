@@ -241,7 +241,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 280,
+        "line" : 279,
         "column" : 8,
         "source_fragment" : "MyDeparser"
       },
@@ -257,7 +257,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 124,
+        "line" : 123,
         "column" : 28,
         "source_fragment" : "flow_last_seen"
       },
@@ -269,7 +269,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 125,
+        "line" : 124,
         "column" : 28,
         "source_fragment" : "flow_byte_count"
       },
@@ -310,7 +310,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 258,
+        "line" : 257,
         "column" : 8,
         "source_fragment" : "update_checksum( ..."
       },
@@ -392,7 +392,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 128,
+            "line" : 127,
             "column" : 8,
             "source_fragment" : "mark_to_drop(standard_metadata)"
           }
@@ -414,7 +414,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 128,
+            "line" : 127,
             "column" : 8,
             "source_fragment" : "mark_to_drop(standard_metadata)"
           }
@@ -436,7 +436,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 128,
+            "line" : 127,
             "column" : 8,
             "source_fragment" : "mark_to_drop(standard_metadata)"
           }
@@ -477,7 +477,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 136,
+            "line" : 135,
             "column" : 8,
             "source_fragment" : "standard_metadata.egress_spec = port"
           }
@@ -496,7 +496,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 137,
+            "line" : 136,
             "column" : 8,
             "source_fragment" : "hdr.ethernet.srcAddr = hdr.ethernet.dstAddr"
           }
@@ -515,7 +515,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 138,
+            "line" : 137,
             "column" : 8,
             "source_fragment" : "hdr.ethernet.dstAddr = dstAddr"
           }
@@ -557,7 +557,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 139,
+            "line" : 138,
             "column" : 8,
             "source_fragment" : "hdr.ipv4.ttl = hdr.ipv4.ttl - 1"
           }
@@ -592,7 +592,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 136,
+            "line" : 135,
             "column" : 8,
             "source_fragment" : "standard_metadata.egress_spec = port"
           }
@@ -611,7 +611,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 137,
+            "line" : 136,
             "column" : 8,
             "source_fragment" : "hdr.ethernet.srcAddr = hdr.ethernet.dstAddr"
           }
@@ -630,7 +630,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 138,
+            "line" : 137,
             "column" : 8,
             "source_fragment" : "hdr.ethernet.dstAddr = dstAddr"
           }
@@ -672,7 +672,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 139,
+            "line" : 138,
             "column" : 8,
             "source_fragment" : "hdr.ipv4.ttl = hdr.ipv4.ttl - 1"
           }
@@ -698,9 +698,9 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 143,
+            "line" : 142,
             "column" : 8,
-            "source_fragment" : "hdr.ipv4.diffserv = (bit<8>)(dscp_value << 2"
+            "source_fragment" : "hdr.ipv4.diffserv = ((bit<8>)dscp_value) << 2"
           }
         }
       ]
@@ -719,20 +719,20 @@
             },
             {
               "type" : "hexstr",
-              "value" : "0x08"
+              "value" : "0x88"
             }
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 143,
+            "line" : 142,
             "column" : 8,
-            "source_fragment" : "hdr.ipv4.diffserv = (bit<8>)(dscp_value << 2"
+            "source_fragment" : "hdr.ipv4.diffserv = ((bit<8>)dscp_value) << 2"
           }
         }
       ]
     },
     {
-      "name" : "basic_trabalho2l212",
+      "name" : "basic_trabalho2l211",
       "id" : 10,
       "runtime_data" : [],
       "primitives" : [
@@ -763,7 +763,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 212,
+            "line" : 211,
             "column" : 24,
             "source_fragment" : "meta.bytes_in_window = (bit<32>)hdr.ipv4.totalLen"
           }
@@ -771,7 +771,7 @@
       ]
     },
     {
-      "name" : "basic_trabalho2l215",
+      "name" : "basic_trabalho2l214",
       "id" : 11,
       "runtime_data" : [],
       "primitives" : [
@@ -822,7 +822,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 215,
+            "line" : 214,
             "column" : 24,
             "source_fragment" : "meta.bytes_in_window = meta.byte_count + (bit<32>)hdr.ipv4.totalLen"
           }
@@ -830,7 +830,7 @@
       ]
     },
     {
-      "name" : "basic_trabalho2l192",
+      "name" : "basic_trabalho2l191",
       "id" : 12,
       "runtime_data" : [],
       "primitives" : [
@@ -848,7 +848,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 195,
+            "line" : 194,
             "column" : 27,
             "source_fragment" : "hdr.ipv4.srcAddr"
           }
@@ -867,7 +867,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 196,
+            "line" : 195,
             "column" : 27,
             "source_fragment" : "hdr.ipv4.dstAddr"
           }
@@ -886,7 +886,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 197,
+            "line" : 196,
             "column" : 27,
             "source_fragment" : "hdr.ipv4.protocol"
           }
@@ -905,7 +905,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 198,
+            "line" : 197,
             "column" : 27,
             "source_fragment" : "hdr.udp.srcPort"
           }
@@ -924,7 +924,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 199,
+            "line" : 198,
             "column" : 27,
             "source_fragment" : "hdr.udp.dstPort"
           }
@@ -951,7 +951,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 192,
+            "line" : 191,
             "column" : 20,
             "source_fragment" : "hash(meta.flow_hash, ..."
           }
@@ -970,7 +970,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 203,
+            "line" : 202,
             "column" : 20,
             "source_fragment" : "meta.current_time = standard_metadata.ingress_global_timestamp"
           }
@@ -993,7 +993,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 206,
+            "line" : 205,
             "column" : 20,
             "source_fragment" : "flow_last_seen.read(meta.last_time, meta.flow_hash)"
           }
@@ -1016,7 +1016,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 207,
+            "line" : 206,
             "column" : 20,
             "source_fragment" : "flow_byte_count.read(meta.byte_count, meta.flow_hash)"
           }
@@ -1024,7 +1024,7 @@
       ]
     },
     {
-      "name" : "basic_trabalho2l219",
+      "name" : "basic_trabalho2l218",
       "id" : 13,
       "runtime_data" : [],
       "primitives" : [
@@ -1046,7 +1046,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 219,
+            "line" : 218,
             "column" : 20,
             "source_fragment" : "flow_last_seen.write(meta.flow_hash, meta.current_time)"
           }
@@ -1069,7 +1069,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 220,
+            "line" : 219,
             "column" : 20,
             "source_fragment" : "flow_byte_count.write(meta.flow_hash, meta.bytes_in_window)"
           }
@@ -1083,7 +1083,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 119,
+        "line" : 118,
         "column" : 8,
         "source_fragment" : "MyIngress"
       },
@@ -1094,7 +1094,7 @@
           "id" : 0,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 146,
+            "line" : 145,
             "column" : 10,
             "source_fragment" : "protocol_filter"
           },
@@ -1127,11 +1127,11 @@
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l192",
+          "name" : "tbl_basic_trabalho2l191",
           "id" : 1,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 192,
+            "line" : 191,
             "column" : 20,
             "source_fragment" : "hash(meta.flow_hash, ..."
           },
@@ -1143,10 +1143,10 @@
           "support_timeout" : false,
           "direct_meters" : null,
           "action_ids" : [12],
-          "actions" : ["basic_trabalho2l192"],
+          "actions" : ["basic_trabalho2l191"],
           "base_default_next" : "node_6",
           "next_tables" : {
-            "basic_trabalho2l192" : "node_6"
+            "basic_trabalho2l191" : "node_6"
           },
           "default_entry" : {
             "action_id" : 12,
@@ -1156,11 +1156,11 @@
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l212",
+          "name" : "tbl_basic_trabalho2l211",
           "id" : 2,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 212,
+            "line" : 211,
             "column" : 45,
             "source_fragment" : "="
           },
@@ -1172,10 +1172,10 @@
           "support_timeout" : false,
           "direct_meters" : null,
           "action_ids" : [10],
-          "actions" : ["basic_trabalho2l212"],
-          "base_default_next" : "tbl_basic_trabalho2l219",
+          "actions" : ["basic_trabalho2l211"],
+          "base_default_next" : "tbl_basic_trabalho2l218",
           "next_tables" : {
-            "basic_trabalho2l212" : "tbl_basic_trabalho2l219"
+            "basic_trabalho2l211" : "tbl_basic_trabalho2l218"
           },
           "default_entry" : {
             "action_id" : 10,
@@ -1185,11 +1185,11 @@
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l215",
+          "name" : "tbl_basic_trabalho2l214",
           "id" : 3,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 215,
+            "line" : 214,
             "column" : 45,
             "source_fragment" : "="
           },
@@ -1201,10 +1201,10 @@
           "support_timeout" : false,
           "direct_meters" : null,
           "action_ids" : [11],
-          "actions" : ["basic_trabalho2l215"],
-          "base_default_next" : "tbl_basic_trabalho2l219",
+          "actions" : ["basic_trabalho2l214"],
+          "base_default_next" : "tbl_basic_trabalho2l218",
           "next_tables" : {
-            "basic_trabalho2l215" : "tbl_basic_trabalho2l219"
+            "basic_trabalho2l214" : "tbl_basic_trabalho2l218"
           },
           "default_entry" : {
             "action_id" : 11,
@@ -1214,11 +1214,11 @@
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l219",
+          "name" : "tbl_basic_trabalho2l218",
           "id" : 4,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 219,
+            "line" : 218,
             "column" : 20,
             "source_fragment" : "flow_last_seen.write(meta.flow_hash, meta.current_time); ..."
           },
@@ -1230,10 +1230,10 @@
           "support_timeout" : false,
           "direct_meters" : null,
           "action_ids" : [13],
-          "actions" : ["basic_trabalho2l219"],
+          "actions" : ["basic_trabalho2l218"],
           "base_default_next" : "node_10",
           "next_tables" : {
-            "basic_trabalho2l219" : "node_10"
+            "basic_trabalho2l218" : "node_10"
           },
           "default_entry" : {
             "action_id" : 13,
@@ -1247,7 +1247,7 @@
           "id" : 5,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 225,
+            "line" : 224,
             "column" : 24,
             "source_fragment" : "mark_dscp(DSCP_BE)"
           },
@@ -1276,7 +1276,7 @@
           "id" : 6,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 228,
+            "line" : 227,
             "column" : 24,
             "source_fragment" : "mark_dscp(DSCP_AF41)"
           },
@@ -1305,7 +1305,7 @@
           "id" : 7,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 171,
+            "line" : 170,
             "column" : 10,
             "source_fragment" : "dscp_routing"
           },
@@ -1348,7 +1348,7 @@
           "id" : 8,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 158,
+            "line" : 157,
             "column" : 10,
             "source_fragment" : "ipv4_lpm"
           },
@@ -1389,7 +1389,7 @@
           "id" : 0,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 186,
+            "line" : 185,
             "column" : 12,
             "source_fragment" : "hdr.ipv4.isValid()"
           },
@@ -1412,7 +1412,7 @@
           "id" : 1,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 190,
+            "line" : 189,
             "column" : 20,
             "source_fragment" : "hdr.udp.isValid()"
           },
@@ -1427,7 +1427,7 @@
               }
             }
           },
-          "true_next" : "tbl_basic_trabalho2l192",
+          "true_next" : "tbl_basic_trabalho2l191",
           "false_next" : "MyIngress.dscp_routing"
         },
         {
@@ -1435,7 +1435,7 @@
           "id" : 2,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 210,
+            "line" : 209,
             "column" : 24,
             "source_fragment" : "meta.current_time - meta.last_time > WINDOW_SIZE"
           },
@@ -1473,15 +1473,15 @@
               }
             }
           },
-          "true_next" : "tbl_basic_trabalho2l212",
-          "false_next" : "tbl_basic_trabalho2l215"
+          "true_next" : "tbl_basic_trabalho2l211",
+          "false_next" : "tbl_basic_trabalho2l214"
         },
         {
           "name" : "node_10",
           "id" : 3,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 223,
+            "line" : 222,
             "column" : 24,
             "source_fragment" : "meta.bytes_in_window > THRESHOLD_PER_WINDOW"
           },
@@ -1509,7 +1509,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 246,
+        "line" : 245,
         "column" : 8,
         "source_fragment" : "MyEgress"
       },
@@ -1525,7 +1525,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 258,
+        "line" : 257,
         "column" : 8,
         "source_fragment" : "update_checksum( ..."
       },

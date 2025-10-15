@@ -12,8 +12,7 @@ const bit<6> DSCP_BE = 0;     // Baixa prioridade (Red)
 
 // Traffic monitoring parameters
 const bit<48> WINDOW_SIZE = 100000;  // 100ms em microsegundos
-const bit<32> THRESHOLD = 1000000;   // 8 Mb/s = 1 MB/s = 1000000 bytes/s
-const bit<32> THRESHOLD_PER_WINDOW = 100000; // 1000000 * 0.1 = 100KB em 100ms
+const bit<32> THRESHOLD_PER_WINDOW = 100000; // 8 Mbps * 0.1s = 100.000 bytes
 
 /*************************************************************************
 *********************** H E A D E R S  ***********************************
@@ -140,7 +139,7 @@ control MyIngress(inout headers hdr,
     }
 
     action mark_dscp(bit<6> dscp_value) {
-        hdr.ipv4.diffserv = (bit<8>)(dscp_value << 2);
+        hdr.ipv4.diffserv = ((bit<8>)dscp_value) << 2;
     }
 
     table protocol_filter {
