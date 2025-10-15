@@ -241,7 +241,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 279,
+        "line" : 278,
         "column" : 8,
         "source_fragment" : "MyDeparser"
       },
@@ -310,7 +310,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 257,
+        "line" : 256,
         "column" : 8,
         "source_fragment" : "update_checksum( ..."
       },
@@ -692,34 +692,41 @@
               "value" : ["ipv4", "diffserv"]
             },
             {
-              "type" : "hexstr",
-              "value" : "0x00"
-            }
-          ],
-          "source_info" : {
-            "filename" : "basic_trabalho2.p4",
-            "line" : 142,
-            "column" : 8,
-            "source_fragment" : "hdr.ipv4.diffserv = ((bit<8>)dscp_value) << 2"
-          }
-        }
-      ]
-    },
-    {
-      "name" : "MyIngress.mark_dscp",
-      "id" : 9,
-      "runtime_data" : [],
-      "primitives" : [
-        {
-          "op" : "assign",
-          "parameters" : [
-            {
-              "type" : "field",
-              "value" : ["ipv4", "diffserv"]
-            },
-            {
-              "type" : "hexstr",
-              "value" : "0x88"
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "<<",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "field",
+                            "value" : ["scalars", "metadata.new_dscp"]
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0xff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x2"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xff"
+                  }
+                }
+              }
             }
           ],
           "source_info" : {
@@ -733,7 +740,7 @@
     },
     {
       "name" : "basic_trabalho2l211",
-      "id" : 10,
+      "id" : 9,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -772,7 +779,7 @@
     },
     {
       "name" : "basic_trabalho2l214",
-      "id" : 11,
+      "id" : 10,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -831,7 +838,7 @@
     },
     {
       "name" : "basic_trabalho2l191",
-      "id" : 12,
+      "id" : 11,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1024,8 +1031,60 @@
       ]
     },
     {
-      "name" : "basic_trabalho2l218",
+      "name" : "basic_trabalho2l223",
+      "id" : 12,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.new_dscp"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 11,
+            "column" : 23,
+            "source_fragment" : "0; // Baixa prioridade (Red) ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l225",
       "id" : 13,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.new_dscp"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x22"
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 10,
+            "column" : 25,
+            "source_fragment" : "34; // Alta prioridade (Green) ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l218",
+      "id" : 14,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1142,14 +1201,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [12],
+          "action_ids" : [11],
           "actions" : ["basic_trabalho2l191"],
           "base_default_next" : "node_6",
           "next_tables" : {
             "basic_trabalho2l191" : "node_6"
           },
           "default_entry" : {
-            "action_id" : 12,
+            "action_id" : 11,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -1171,14 +1230,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [10],
+          "action_ids" : [9],
           "actions" : ["basic_trabalho2l211"],
           "base_default_next" : "tbl_basic_trabalho2l218",
           "next_tables" : {
             "basic_trabalho2l211" : "tbl_basic_trabalho2l218"
           },
           "default_entry" : {
-            "action_id" : 10,
+            "action_id" : 9,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -1200,14 +1259,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [11],
+          "action_ids" : [10],
           "actions" : ["basic_trabalho2l214"],
           "base_default_next" : "tbl_basic_trabalho2l218",
           "next_tables" : {
             "basic_trabalho2l214" : "tbl_basic_trabalho2l218"
           },
           "default_entry" : {
-            "action_id" : 11,
+            "action_id" : 10,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -1229,11 +1288,69 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [13],
+          "action_ids" : [14],
           "actions" : ["basic_trabalho2l218"],
           "base_default_next" : "node_10",
           "next_tables" : {
             "basic_trabalho2l218" : "node_10"
+          },
+          "default_entry" : {
+            "action_id" : 14,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l223",
+          "id" : 5,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 223,
+            "column" : 38,
+            "source_fragment" : "="
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [12],
+          "actions" : ["basic_trabalho2l223"],
+          "base_default_next" : "tbl_mark_dscp",
+          "next_tables" : {
+            "basic_trabalho2l223" : "tbl_mark_dscp"
+          },
+          "default_entry" : {
+            "action_id" : 12,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l225",
+          "id" : 6,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 225,
+            "column" : 38,
+            "source_fragment" : "="
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [13],
+          "actions" : ["basic_trabalho2l225"],
+          "base_default_next" : "tbl_mark_dscp",
+          "next_tables" : {
+            "basic_trabalho2l225" : "tbl_mark_dscp"
           },
           "default_entry" : {
             "action_id" : 13,
@@ -1244,12 +1361,12 @@
         },
         {
           "name" : "tbl_mark_dscp",
-          "id" : 5,
+          "id" : 7,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 224,
-            "column" : 24,
-            "source_fragment" : "mark_dscp(DSCP_BE)"
+            "line" : 227,
+            "column" : 20,
+            "source_fragment" : "mark_dscp(meta.new_dscp)"
           },
           "key" : [],
           "match_type" : "exact",
@@ -1272,37 +1389,8 @@
           }
         },
         {
-          "name" : "tbl_mark_dscp_0",
-          "id" : 6,
-          "source_info" : {
-            "filename" : "basic_trabalho2.p4",
-            "line" : 227,
-            "column" : 24,
-            "source_fragment" : "mark_dscp(DSCP_AF41)"
-          },
-          "key" : [],
-          "match_type" : "exact",
-          "type" : "simple",
-          "max_size" : 1024,
-          "with_counters" : false,
-          "support_timeout" : false,
-          "direct_meters" : null,
-          "action_ids" : [9],
-          "actions" : ["MyIngress.mark_dscp"],
-          "base_default_next" : "MyIngress.dscp_routing",
-          "next_tables" : {
-            "MyIngress.mark_dscp" : "MyIngress.dscp_routing"
-          },
-          "default_entry" : {
-            "action_id" : 9,
-            "action_const" : true,
-            "action_data" : [],
-            "action_entry_const" : true
-          }
-        },
-        {
           "name" : "MyIngress.dscp_routing",
-          "id" : 7,
+          "id" : 8,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
             "line" : 170,
@@ -1345,7 +1433,7 @@
         },
         {
           "name" : "MyIngress.ipv4_lpm",
-          "id" : 8,
+          "id" : 9,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
             "line" : 157,
@@ -1495,12 +1583,12 @@
               },
               "right" : {
                 "type" : "hexstr",
-                "value" : "0x000186a0"
+                "value" : "0x00002710"
               }
             }
           },
-          "true_next" : "tbl_mark_dscp",
-          "false_next" : "tbl_mark_dscp_0"
+          "true_next" : "tbl_basic_trabalho2l223",
+          "false_next" : "tbl_basic_trabalho2l225"
         }
       ]
     },
@@ -1509,7 +1597,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 245,
+        "line" : 244,
         "column" : 8,
         "source_fragment" : "MyEgress"
       },
@@ -1525,7 +1613,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 257,
+        "line" : 256,
         "column" : 8,
         "source_fragment" : "update_checksum( ..."
       },

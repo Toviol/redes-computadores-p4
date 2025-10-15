@@ -1,65 +1,24 @@
+# Link de 2 Mbps
+s1 tc qdisc add dev s1-eth2 root tbf rate 2mbit burst 10kb latency 50ms
+s2 tc qdisc add dev s2-eth2 root tbf rate 2mbit burst 10kb latency 50ms
+
+# Link de 300 kbps
+s1 tc qdisc add dev s1-eth3 root tbf rate 300kbit burst 10kb latency 50ms
+s2 tc qdisc add dev s2-eth3 root tbf rate 300kbit burst 10kb latency 50ms
+
+# fora do mininet esses do wireshark
+# abrir 3 wireshark e ver a porta 2 e porta 3 do s1 e h2
+sudo wireshark &
+sudo wireshark &
+sudo wireshark
+
+h1 sudo python3 send_two_flows.py --dst 10.0.2.2 --sport1 5000 --dport1 5001 --size1 500 --rate1 0.5 --sport2 6000 --dport2 6001 --size2 1200 --rate2 1.2 --count 50
+
+
+
+
+# alternativo com tcpdump
+
 # No Mininet:
 mininet> h2 sudo tcpdump -i h2-eth0 -vv -n udp port 5001 &
 mininet> h1 sudo python3 send_udp.py --dst 10.0.2.2 --sport 5000 --dport 5001 --count 50 --size 800 --rate 5
-
-
-
-
-
-# Fora do Mininet, em um terminal novo:
-sudo wireshark &
-
-# No Wireshark:
-# 1. Capture > Options
-# 2. Selecione a interface: h2-eth0 (ou s1-eth2 para ver canal ALTA)
-# 3. Filter: udp
-# 4. Start
-
-# No Mininet:
-mininet> h1 sudo python3 send_udp.py --dst 10.0.2.2 --sport 5000 --dport 5001 --count 50 --size 1200 --rate 10
-mininet> h1 sudo python3 send_udp.py --dst 10.0.2.2 --sport 6000 --dport 6001 --count 50 --size 800 --rate 5
-
-
-
-# Fora do Mininet, em 2 terminais:
-
-# Terminal 1 - Monitorar canal ALTA (porta 2 do s1):
-sudo tcpdump -i s1-eth2 -n udp
-
-# Terminal 2 - Monitorar canal BAIXA (porta 3 do s1):
-sudo tcpdump -i s1-eth3 -n udp
-
-# No Mininet:
-# Enviar tráfego BAIXO (deve ir pelo canal ALTA):
-h1 sudo python3 send_udp.py --dst 10.0.2.2 --sport 5000 --dport 5001 --count 50 --size 800 --rate 5
-
-# Enviar tráfego ALTO (deve ir pelo canal BAIXA):
-h1 sudo python3 send_udp.py --dst 10.0.2.2 --sport 6000 --dport 6001 --count 100 --size 1400 --rate 15
-
-
-
-
-
-
-# 1. Inicie o Mininet:
-make run
-
-# 2. Fora do Mininet, abra Wireshark:
-sudo wireshark &
-# Selecione interface: h2-eth0
-# Filtro: udp
-# Start
-
-# 3. No Mininet, envie tráfego variado:
-
-# Tráfego BAIXO (esperado: DSCP=34, canal ALTA):
-h1 sudo python3 send_udp.py --dst 10.0.2.2 --sport 5000 --dport 5001 --count 50 --size 800 --rate 5
-
-# Aguarde 2 segundos...
-
-# Tráfego ALTO (esperado: DSCP=0, canal BAIXA):
-h1 sudo python3 send_udp.py --dst 10.0.2.2 --sport 6000 --dport 6001 --count 100 --size 1400 --rate 12
-
-# 4. No Wireshark, veja os pacotes:
-# - Porta 5001: DSCP = AF41 (34) 🟢
-# - Porta 6001: DSCP = Default (0) 🔴

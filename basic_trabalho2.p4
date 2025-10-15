@@ -12,7 +12,7 @@ const bit<6> DSCP_BE = 0;     // Baixa prioridade (Red)
 
 // Traffic monitoring parameters
 const bit<48> WINDOW_SIZE = 100000;  // 100ms em microsegundos
-const bit<32> THRESHOLD_PER_WINDOW = 100000; // 8 Mbps * 0.1s = 100.000 bytes
+const bit<32> THRESHOLD_PER_WINDOW = 10000; // 0.8 Mbps * 0.1s = 10.000 bytes -> 80.000 bits em 100 ms -> 800Kbps
 
 /*************************************************************************
 *********************** H E A D E R S  ***********************************
@@ -207,10 +207,10 @@ control MyIngress(inout headers hdr,
                     
                     // Verificar se estamos dentro da janela de tempo
                     if (meta.current_time - meta.last_time > WINDOW_SIZE) {
-                        // Nova janela - resetar contador
+                        // Janela expirou, resetar contador
                         meta.bytes_in_window = (bit<32>)hdr.ipv4.totalLen;
                     } else {
-                        // Mesma janela - acumular bytes
+                        // Dentro da janela, acumular bytes
                         meta.bytes_in_window = meta.byte_count + (bit<32>)hdr.ipv4.totalLen;
                     }
                     
@@ -218,19 +218,18 @@ control MyIngress(inout headers hdr,
                     flow_last_seen.write(meta.flow_hash, meta.current_time);
                     flow_byte_count.write(meta.flow_hash, meta.bytes_in_window);
                     
-                    // Marcar DSCP baseado no limiar
+                    // Marcar DSCP com base no limiar
                     if (meta.bytes_in_window > THRESHOLD_PER_WINDOW) {
-                        // Fluxo acima do limiar - RED (baixa prioridade)
-                        mark_dscp(DSCP_BE);
+                        meta.new_dscp = DSCP_BE; // Red
                     } else {
-                        // Fluxo abaixo do limiar - GREEN (alta prioridade)
-                        mark_dscp(DSCP_AF41);
+                        meta.new_dscp = DSCP_AF41; // Green
                     }
+                    mark_dscp(meta.new_dscp);
                 }
                 
                 // Tentar roteamento baseado em DSCP primeiro
                 if (!dscp_routing.apply().hit) {
-                    // Se não houver entrada DSCP, usar LPM padrão
+                    // Fallback para roteamento normal se não houver regra DSCP
                     ipv4_lpm.apply();
                 }
             }
