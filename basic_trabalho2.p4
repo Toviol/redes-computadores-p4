@@ -6,16 +6,11 @@
 const bit<16> TYPE_IPV4 = 0x800;
 const bit<8>  PROTO_UDP = 17;
 
-// DSCP values
-const bit<6> DSCP_AF41 = 34;  // Alta prioridade (Green)
-const bit<6> DSCP_BE = 0;     // Baixa prioridade (Red)
+const bit<6> DSCP_AF41 = 34;  // Alta prioridade
+const bit<6> DSCP_BE = 0;     // Baixa prioridade
 
-// Traffic monitoring parameters
-const bit<48> WINDOW_SIZE = 100000;  // 100ms em microsegundos
-const bit<48> PENALTY_TIME = 1000000; // 10 janelas = 1 segundo (tempo para poder voltar para GREEN)
-const bit<32> THRESHOLD_PER_WINDOW = 1000; // 800 Kbps * 0.1s = 10.000 bytes em 100ms
-// Explicação: 800 Kbps = 800.000 bits/s = 100.000 bytes/s
-// Em 100ms (0.1s): 100.000 bytes/s * 0.1s = 10.000 bytes
+const bit<48> WINDOW_SIZE_SHORT = 100000;  // 100ms em microsegundos (janela curta)
+const bit<32> THRESHOLD_PER_WINDOW = 5000; // 400 Kbps * 0.1s = 5.000 bytes em 100ms
 
 /*************************************************************************
 *********************** H E A D E R S  ***********************************
@@ -58,10 +53,13 @@ struct metadata {
     bit<32> flow_hash;
     bit<48> current_time;
     bit<48> window_start;
-    bit<48> last_violation;
     bit<48> time_in_window;
-    bit<32> byte_count;
+    bit<32> byte_count_current;
     bit<32> bytes_in_window;
+    bit<4>  current_window_idx;
+    bit<32> window_bytes;
+    bit<32> total_bytes_history;
+    bit<1>  is_red;
     bit<6>  new_dscp;
 }
 
@@ -125,9 +123,23 @@ control MyIngress(inout headers hdr,
                   inout standard_metadata_t standard_metadata) {
     
     // Registers para medição de tráfego por fluxo
-    register<bit<48>>(8192) flow_window_start;   // Timestamp do início da janela atual
-    register<bit<32>>(8192) flow_byte_count;     // Contador de bytes na janela atual
-    register<bit<48>>(8192) flow_last_violation; // Timestamp da última violação (para penalty)
+    register<bit<48>>(8192) flow_window_start;        // Timestamp do início da janela atual
+    register<bit<32>>(8192) flow_byte_count;          // Contador de bytes na janela atual
+    register<bit<4>>(8192)  flow_current_window_idx;  // Índice da janela atual no histórico (0-9)
+    
+    // Histórico de 10 janelas (janelona de 1s)
+    register<bit<32>>(8192) flow_window_history_0;
+    register<bit<32>>(8192) flow_window_history_1;
+    register<bit<32>>(8192) flow_window_history_2;
+    register<bit<32>>(8192) flow_window_history_3;
+    register<bit<32>>(8192) flow_window_history_4;
+    register<bit<32>>(8192) flow_window_history_5;
+    register<bit<32>>(8192) flow_window_history_6;
+    register<bit<32>>(8192) flow_window_history_7;
+    register<bit<32>>(8192) flow_window_history_8;
+    register<bit<32>>(8192) flow_window_history_9;
+    
+    register<bit<1>>(8192)  flow_is_red; // Flag se o fluxo está em RED
     
     action drop() {
         mark_to_drop(standard_metadata);
@@ -191,7 +203,7 @@ control MyIngress(inout headers hdr,
         if (hdr.ipv4.isValid()) {
             if (protocol_filter.apply().hit) {
                 
-                // Medição de tráfego apenas no switch S1
+                // Medição de tráfego
                 if (hdr.udp.isValid()) {
                     // Calcular hash do fluxo (5-tuple)
                     hash(meta.flow_hash,
@@ -209,44 +221,110 @@ control MyIngress(inout headers hdr,
                     
                     // Ler estado do fluxo
                     flow_window_start.read(meta.window_start, meta.flow_hash);
-                    flow_byte_count.read(meta.byte_count, meta.flow_hash);
-                    flow_last_violation.read(meta.last_violation, meta.flow_hash);
+                    flow_byte_count.read(meta.byte_count_current, meta.flow_hash);
+                    flow_current_window_idx.read(meta.current_window_idx, meta.flow_hash);
+                    flow_is_red.read(meta.is_red, meta.flow_hash);
                     
-                    // Calcular tempo decorrido desde o início da janela
+                    // Calcular tempo decorrido desde o início da janela atual
                     meta.time_in_window = meta.current_time - meta.window_start;
                     
-                    // Verificar se a janela atual expirou (passou 100ms)
-                    if (meta.window_start == 0 || meta.time_in_window > WINDOW_SIZE) {
+                    if (meta.window_start == 0 || meta.time_in_window > WINDOW_SIZE_SHORT) {
+                        // Janela expirou, salvar no histórico e avançar
+                        
+                        // Salvar bytes da janela que acabou no histórico (no índice atual)
+                        if (meta.current_window_idx == 0) {
+                            flow_window_history_0.write(meta.flow_hash, meta.byte_count_current);
+                        } else if (meta.current_window_idx == 1) {
+                            flow_window_history_1.write(meta.flow_hash, meta.byte_count_current);
+                        } else if (meta.current_window_idx == 2) {
+                            flow_window_history_2.write(meta.flow_hash, meta.byte_count_current);
+                        } else if (meta.current_window_idx == 3) {
+                            flow_window_history_3.write(meta.flow_hash, meta.byte_count_current);
+                        } else if (meta.current_window_idx == 4) {
+                            flow_window_history_4.write(meta.flow_hash, meta.byte_count_current);
+                        } else if (meta.current_window_idx == 5) {
+                            flow_window_history_5.write(meta.flow_hash, meta.byte_count_current);
+                        } else if (meta.current_window_idx == 6) {
+                            flow_window_history_6.write(meta.flow_hash, meta.byte_count_current);
+                        } else if (meta.current_window_idx == 7) {
+                            flow_window_history_7.write(meta.flow_hash, meta.byte_count_current);
+                        } else if (meta.current_window_idx == 8) {
+                            flow_window_history_8.write(meta.flow_hash, meta.byte_count_current);
+                        } else if (meta.current_window_idx == 9) {
+                            flow_window_history_9.write(meta.flow_hash, meta.byte_count_current);
+                        }
+                        
+                        // Avançar para próxima janela (circular: 0-9)
+                        if (meta.current_window_idx == 9) {
+                            meta.current_window_idx = 0;
+                        } else {
+                            meta.current_window_idx = meta.current_window_idx + 1;
+                        }
+                        
                         // Iniciar nova janela
                         meta.window_start = meta.current_time;
                         meta.bytes_in_window = (bit<32>)hdr.ipv4.totalLen;
                     } else {
-                        // Dentro da janela atual - acumular bytes
-                        meta.bytes_in_window = meta.byte_count + (bit<32>)hdr.ipv4.totalLen;
+                        // Dentro da janela atual, acumular bytes
+                        meta.bytes_in_window = meta.byte_count_current + (bit<32>)hdr.ipv4.totalLen;
                     }
                     
-                    // Verificar se excedeu o limiar nesta janela
                     if (meta.bytes_in_window > THRESHOLD_PER_WINDOW) {
-                        // Violação! Marcar timestamp da violação
-                        meta.last_violation = meta.current_time;
-                        flow_last_violation.write(meta.flow_hash, meta.last_violation);
+                        // Numero de bytes na janela ultrapassou o limite do threshold
+                        meta.is_red = 1;
                     }
                     
-                    // Atualizar registers da janela
+                    if (meta.is_red == 1) {
+                        // Somar bytes de todas as 10 janelas do historico, pra ver se volta pra alta
+                        meta.total_bytes_history = 0;
+                        
+                        flow_window_history_0.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        flow_window_history_1.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        flow_window_history_2.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        flow_window_history_3.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        flow_window_history_4.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        flow_window_history_5.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        flow_window_history_6.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        flow_window_history_7.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        flow_window_history_8.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        flow_window_history_9.read(meta.window_bytes, meta.flow_hash);
+                        meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes;
+                        
+                        // Se a soma das últimas 10 janelas for menor que threshold, pode voltar pra alta
+                        if (meta.total_bytes_history <= THRESHOLD_PER_WINDOW) {
+                            meta.is_red = 0;
+                        }
+                    }
+                    
+                    // Atualizar registers
                     flow_window_start.write(meta.flow_hash, meta.window_start);
                     flow_byte_count.write(meta.flow_hash, meta.bytes_in_window);
+                    flow_current_window_idx.write(meta.flow_hash, meta.current_window_idx);
+                    flow_is_red.write(meta.flow_hash, meta.is_red);
                     
-                    // Decidir DSCP: Uma vez em RED, só volta para GREEN após PENALTY_TIME
-                    // sem violações (10 janelas = 1 segundo)
-                    if (meta.last_violation == 0) {
-                        // Nunca violou - GREEN
-                        meta.new_dscp = DSCP_AF41; // Green - Alta prioridade
-                    } else if (meta.current_time - meta.last_violation > PENALTY_TIME) {
-                        // Passou tempo suficiente sem violar - pode voltar para GREEN
-                        meta.new_dscp = DSCP_AF41; // Green - Alta prioridade
+                    // Aplicar DSCP baseado no estado
+                    if (meta.is_red == 1) {
+                        meta.new_dscp = DSCP_BE; // Red - Canal baixa
                     } else {
-                        // Ainda em período de penalidade - RED
-                        meta.new_dscp = DSCP_BE; // Red - Baixa prioridade
+                        meta.new_dscp = DSCP_AF41; // Green - Canal alta
                     }
                     
                     mark_dscp(meta.new_dscp);

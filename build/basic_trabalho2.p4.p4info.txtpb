@@ -163,14 +163,179 @@ registers {
 }
 registers {
   preamble {
-    id: 384328097
-    name: "MyIngress.flow_last_violation"
-    alias: "flow_last_violation"
+    id: 384160208
+    name: "MyIngress.flow_current_window_idx"
+    alias: "flow_current_window_idx"
   }
   type_spec {
     bitstring {
       bit {
-        bitwidth: 48
+        bitwidth: 4
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 373532973
+    name: "MyIngress.flow_window_history_0"
+    alias: "flow_window_history_0"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 372535567
+    name: "MyIngress.flow_window_history_1"
+    alias: "flow_window_history_1"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 385703585
+    name: "MyIngress.flow_window_history_2"
+    alias: "flow_window_history_2"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 378977236
+    name: "MyIngress.flow_window_history_3"
+    alias: "flow_window_history_3"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 374015805
+    name: "MyIngress.flow_window_history_4"
+    alias: "flow_window_history_4"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 385864894
+    name: "MyIngress.flow_window_history_5"
+    alias: "flow_window_history_5"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 379924489
+    name: "MyIngress.flow_window_history_6"
+    alias: "flow_window_history_6"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 375594373
+    name: "MyIngress.flow_window_history_7"
+    alias: "flow_window_history_7"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 373520710
+    name: "MyIngress.flow_window_history_8"
+    alias: "flow_window_history_8"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 373676363
+    name: "MyIngress.flow_window_history_9"
+    alias: "flow_window_history_9"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 369931723
+    name: "MyIngress.flow_is_red"
+    alias: "flow_is_red"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 1
       }
     }
   }

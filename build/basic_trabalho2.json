@@ -12,12 +12,16 @@
         ["metadata.flow_hash", 32, false],
         ["metadata.current_time", 48, false],
         ["metadata.window_start", 48, false],
-        ["metadata.last_violation", 48, false],
         ["metadata.time_in_window", 48, false],
-        ["metadata.byte_count", 32, false],
+        ["metadata.byte_count_current", 32, false],
         ["metadata.bytes_in_window", 32, false],
+        ["metadata.current_window_idx", 4, false],
+        ["metadata.check_idx", 4, false],
+        ["metadata.window_bytes", 32, false],
+        ["metadata.total_bytes_history", 32, false],
+        ["metadata.is_red", 1, false],
         ["metadata.new_dscp", 6, false],
-        ["_padding_0", 2, false]
+        ["_padding_0", 1, false]
       ]
     },
     {
@@ -243,7 +247,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 303,
+        "line" : 385,
         "column" : 8,
         "source_fragment" : "MyDeparser"
       },
@@ -259,7 +263,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 128,
+        "line" : 127,
         "column" : 28,
         "source_fragment" : "flow_window_start"
       },
@@ -271,7 +275,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 129,
+        "line" : 128,
         "column" : 28,
         "source_fragment" : "flow_byte_count"
       },
@@ -279,16 +283,148 @@
       "bitwidth" : 32
     },
     {
-      "name" : "MyIngress.flow_last_violation",
+      "name" : "MyIngress.flow_current_window_idx",
       "id" : 2,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 130,
-        "column" : 28,
-        "source_fragment" : "flow_last_violation"
+        "line" : 129,
+        "column" : 27,
+        "source_fragment" : "flow_current_window_idx"
       },
       "size" : 8192,
-      "bitwidth" : 48
+      "bitwidth" : 4
+    },
+    {
+      "name" : "MyIngress.flow_window_history_0",
+      "id" : 3,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 132,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_0"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_window_history_1",
+      "id" : 4,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 133,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_1"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_window_history_2",
+      "id" : 5,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 134,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_2"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_window_history_3",
+      "id" : 6,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 135,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_3"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_window_history_4",
+      "id" : 7,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 136,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_4"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_window_history_5",
+      "id" : 8,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 137,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_5"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_window_history_6",
+      "id" : 9,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 138,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_6"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_window_history_7",
+      "id" : 10,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 139,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_7"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_window_history_8",
+      "id" : 11,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 140,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_8"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_window_history_9",
+      "id" : 12,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 141,
+        "column" : 28,
+        "source_fragment" : "flow_window_history_9"
+      },
+      "size" : 8192,
+      "bitwidth" : 32
+    },
+    {
+      "name" : "MyIngress.flow_is_red",
+      "id" : 13,
+      "source_info" : {
+        "filename" : "basic_trabalho2.p4",
+        "line" : 143,
+        "column" : 27,
+        "source_fragment" : "flow_is_red"
+      },
+      "size" : 8192,
+      "bitwidth" : 1
     }
   ],
   "calculations" : [
@@ -324,7 +460,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 281,
+        "line" : 363,
         "column" : 8,
         "source_fragment" : "update_checksum( ..."
       },
@@ -406,7 +542,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 133,
+            "line" : 146,
             "column" : 8,
             "source_fragment" : "mark_to_drop(standard_metadata)"
           }
@@ -428,7 +564,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 133,
+            "line" : 146,
             "column" : 8,
             "source_fragment" : "mark_to_drop(standard_metadata)"
           }
@@ -450,7 +586,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 133,
+            "line" : 146,
             "column" : 8,
             "source_fragment" : "mark_to_drop(standard_metadata)"
           }
@@ -491,7 +627,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 141,
+            "line" : 154,
             "column" : 8,
             "source_fragment" : "standard_metadata.egress_spec = port"
           }
@@ -510,7 +646,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 142,
+            "line" : 155,
             "column" : 8,
             "source_fragment" : "hdr.ethernet.srcAddr = hdr.ethernet.dstAddr"
           }
@@ -529,7 +665,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 143,
+            "line" : 156,
             "column" : 8,
             "source_fragment" : "hdr.ethernet.dstAddr = dstAddr"
           }
@@ -571,7 +707,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 144,
+            "line" : 157,
             "column" : 8,
             "source_fragment" : "hdr.ipv4.ttl = hdr.ipv4.ttl - 1"
           }
@@ -606,7 +742,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 141,
+            "line" : 154,
             "column" : 8,
             "source_fragment" : "standard_metadata.egress_spec = port"
           }
@@ -625,7 +761,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 142,
+            "line" : 155,
             "column" : 8,
             "source_fragment" : "hdr.ethernet.srcAddr = hdr.ethernet.dstAddr"
           }
@@ -644,7 +780,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 143,
+            "line" : 156,
             "column" : 8,
             "source_fragment" : "hdr.ethernet.dstAddr = dstAddr"
           }
@@ -686,7 +822,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 144,
+            "line" : 157,
             "column" : 8,
             "source_fragment" : "hdr.ipv4.ttl = hdr.ipv4.ttl - 1"
           }
@@ -745,7 +881,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 148,
+            "line" : 161,
             "column" : 8,
             "source_fragment" : "hdr.ipv4.diffserv = ((bit<8>)dscp_value) << 2"
           }
@@ -753,8 +889,383 @@
       ]
     },
     {
-      "name" : "basic_trabalho2l221",
+      "name" : "basic_trabalho2l238",
       "id" : 9,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_0"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 238,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_0.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l240",
+      "id" : 10,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 240,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_1.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l242",
+      "id" : 11,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 242,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_2.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l244",
+      "id" : 12,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_3"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 244,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_3.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l246",
+      "id" : 13,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_4"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 246,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_4.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l248",
+      "id" : 14,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_5"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 248,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_5.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l250",
+      "id" : 15,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_6"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 250,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_6.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l252",
+      "id" : 16,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_7"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 252,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_7.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l254",
+      "id" : 17,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_8"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 254,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_8.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l256",
+      "id" : 18,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_9"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.byte_count_current"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 256,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_9.write(meta.flow_hash, meta.byte_count_current)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l261",
+      "id" : 19,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.current_window_idx"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 261,
+            "column" : 28,
+            "source_fragment" : "meta.current_window_idx = 0"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l263",
+      "id" : 20,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.current_window_idx"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.current_window_idx"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0x0f"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 263,
+            "column" : 28,
+            "source_fragment" : "meta.current_window_idx = meta.current_window_idx + 1"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l267",
+      "id" : 21,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -771,7 +1282,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 221,
+            "line" : 267,
             "column" : 24,
             "source_fragment" : "meta.window_start = meta.current_time"
           }
@@ -803,7 +1314,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 222,
+            "line" : 268,
             "column" : 24,
             "source_fragment" : "meta.bytes_in_window = (bit<32>)hdr.ipv4.totalLen"
           }
@@ -811,8 +1322,8 @@
       ]
     },
     {
-      "name" : "basic_trabalho2l225",
-      "id" : 10,
+      "name" : "basic_trabalho2l271",
+      "id" : 22,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -834,7 +1345,7 @@
                       "op" : "+",
                       "left" : {
                         "type" : "field",
-                        "value" : ["scalars", "metadata.byte_count"]
+                        "value" : ["scalars", "metadata.byte_count_current"]
                       },
                       "right" : {
                         "type" : "expression",
@@ -862,16 +1373,16 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 225,
+            "line" : 271,
             "column" : 24,
-            "source_fragment" : "meta.bytes_in_window = meta.byte_count + (bit<32>)hdr.ipv4.totalLen"
+            "source_fragment" : "meta.bytes_in_window = meta.byte_count_current + (bit<32>)hdr.ipv4.totalLen"
           }
         }
       ]
     },
     {
-      "name" : "basic_trabalho2l197",
-      "id" : 11,
+      "name" : "basic_trabalho2l210",
+      "id" : 23,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -888,7 +1399,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 200,
+            "line" : 213,
             "column" : 27,
             "source_fragment" : "hdr.ipv4.srcAddr"
           }
@@ -907,7 +1418,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 201,
+            "line" : 214,
             "column" : 27,
             "source_fragment" : "hdr.ipv4.dstAddr"
           }
@@ -926,7 +1437,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 202,
+            "line" : 215,
             "column" : 27,
             "source_fragment" : "hdr.ipv4.protocol"
           }
@@ -945,7 +1456,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 203,
+            "line" : 216,
             "column" : 27,
             "source_fragment" : "hdr.udp.srcPort"
           }
@@ -964,7 +1475,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 204,
+            "line" : 217,
             "column" : 27,
             "source_fragment" : "hdr.udp.dstPort"
           }
@@ -991,7 +1502,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 197,
+            "line" : 210,
             "column" : 20,
             "source_fragment" : "hash(meta.flow_hash, ..."
           }
@@ -1010,7 +1521,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 208,
+            "line" : 221,
             "column" : 20,
             "source_fragment" : "meta.current_time = standard_metadata.ingress_global_timestamp"
           }
@@ -1033,7 +1544,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 211,
+            "line" : 224,
             "column" : 20,
             "source_fragment" : "flow_window_start.read(meta.window_start, meta.flow_hash)"
           }
@@ -1043,7 +1554,7 @@
           "parameters" : [
             {
               "type" : "field",
-              "value" : ["scalars", "metadata.byte_count"]
+              "value" : ["scalars", "metadata.byte_count_current"]
             },
             {
               "type" : "register_array",
@@ -1056,9 +1567,9 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 212,
+            "line" : 225,
             "column" : 20,
-            "source_fragment" : "flow_byte_count.read(meta.byte_count, meta.flow_hash)"
+            "source_fragment" : "flow_byte_count.read(meta.byte_count_current, meta.flow_hash)"
           }
         },
         {
@@ -1066,11 +1577,11 @@
           "parameters" : [
             {
               "type" : "field",
-              "value" : ["scalars", "metadata.last_violation"]
+              "value" : ["scalars", "metadata.current_window_idx"]
             },
             {
               "type" : "register_array",
-              "value" : "MyIngress.flow_last_violation"
+              "value" : "MyIngress.flow_current_window_idx"
             },
             {
               "type" : "field",
@@ -1079,9 +1590,32 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 213,
+            "line" : 226,
             "column" : 20,
-            "source_fragment" : "flow_last_violation.read(meta.last_violation, meta.flow_hash)"
+            "source_fragment" : "flow_current_window_idx.read(meta.current_window_idx, meta.flow_hash)"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.is_red"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_is_red"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 227,
+            "column" : 20,
+            "source_fragment" : "flow_is_red.read(meta.is_red, meta.flow_hash)"
           }
         },
         {
@@ -1121,7 +1655,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 216,
+            "line" : 230,
             "column" : 20,
             "source_fragment" : "meta.time_in_window = meta.current_time - meta.window_start"
           }
@@ -1129,8 +1663,8 @@
       ]
     },
     {
-      "name" : "basic_trabalho2l231",
-      "id" : 12,
+      "name" : "basic_trabalho2l277",
+      "id" : 24,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1138,100 +1672,704 @@
           "parameters" : [
             {
               "type" : "field",
-              "value" : ["scalars", "metadata.last_violation"]
+              "value" : ["scalars", "metadata.is_red"]
             },
             {
-              "type" : "field",
-              "value" : ["standard_metadata", "ingress_global_timestamp"]
+              "type" : "hexstr",
+              "value" : "0x01"
             }
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 231,
+            "line" : 277,
             "column" : 24,
-            "source_fragment" : "meta.last_violation = meta.current_time"
+            "source_fragment" : "meta.is_red = 1"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l317",
+      "id" : 25,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.is_red"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 317,
+            "column" : 28,
+            "source_fragment" : "meta.is_red = 0"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l283",
+      "id" : 26,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.total_bytes_history"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 283,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = 0"
           }
         },
         {
-          "op" : "register_write",
+          "op" : "register_read",
           "parameters" : [
             {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
               "type" : "register_array",
-              "value" : "MyIngress.flow_last_violation"
+              "value" : "MyIngress.flow_window_history_0"
             },
             {
               "type" : "field",
               "value" : ["scalars", "metadata.flow_hash"]
-            },
-            {
-              "type" : "field",
-              "value" : ["standard_metadata", "ingress_global_timestamp"]
             }
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 232,
+            "line" : 285,
             "column" : 24,
-            "source_fragment" : "flow_last_violation.write(meta.flow_hash, meta.last_violation)"
+            "source_fragment" : "flow_window_history_0.read(meta.window_bytes, meta.flow_hash)"
           }
-        }
-      ]
-    },
-    {
-      "name" : "basic_trabalho2l243",
-      "id" : 13,
-      "runtime_data" : [],
-      "primitives" : [
+        },
         {
           "op" : "assign",
           "parameters" : [
             {
               "type" : "field",
-              "value" : ["scalars", "metadata.new_dscp"]
+              "value" : ["scalars", "metadata.total_bytes_history"]
             },
             {
-              "type" : "hexstr",
-              "value" : "0x22"
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
             }
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 10,
-            "column" : 25,
-            "source_fragment" : "34; // Alta prioridade (Green) ..."
+            "line" : 286,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
           }
-        }
-      ]
-    },
-    {
-      "name" : "basic_trabalho2l246",
-      "id" : 14,
-      "runtime_data" : [],
-      "primitives" : [
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_1"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 288,
+            "column" : 24,
+            "source_fragment" : "flow_window_history_1.read(meta.window_bytes, meta.flow_hash)"
+          }
+        },
         {
           "op" : "assign",
           "parameters" : [
             {
               "type" : "field",
-              "value" : ["scalars", "metadata.new_dscp"]
+              "value" : ["scalars", "metadata.total_bytes_history"]
             },
             {
-              "type" : "hexstr",
-              "value" : "0x22"
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.total_bytes_history"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.window_bytes"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
             }
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 10,
-            "column" : 25,
-            "source_fragment" : "34; // Alta prioridade (Green) ..."
+            "line" : 289,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_2"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 291,
+            "column" : 24,
+            "source_fragment" : "flow_window_history_2.read(meta.window_bytes, meta.flow_hash)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.total_bytes_history"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.total_bytes_history"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.window_bytes"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 292,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_3"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 294,
+            "column" : 24,
+            "source_fragment" : "flow_window_history_3.read(meta.window_bytes, meta.flow_hash)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.total_bytes_history"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.total_bytes_history"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.window_bytes"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 295,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_4"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 297,
+            "column" : 24,
+            "source_fragment" : "flow_window_history_4.read(meta.window_bytes, meta.flow_hash)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.total_bytes_history"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.total_bytes_history"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.window_bytes"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 298,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_5"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 300,
+            "column" : 24,
+            "source_fragment" : "flow_window_history_5.read(meta.window_bytes, meta.flow_hash)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.total_bytes_history"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.total_bytes_history"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.window_bytes"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 301,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_6"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 303,
+            "column" : 24,
+            "source_fragment" : "flow_window_history_6.read(meta.window_bytes, meta.flow_hash)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.total_bytes_history"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.total_bytes_history"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.window_bytes"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 304,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_7"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 306,
+            "column" : 24,
+            "source_fragment" : "flow_window_history_7.read(meta.window_bytes, meta.flow_hash)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.total_bytes_history"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.total_bytes_history"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.window_bytes"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 307,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_8"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 309,
+            "column" : 24,
+            "source_fragment" : "flow_window_history_8.read(meta.window_bytes, meta.flow_hash)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.total_bytes_history"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.total_bytes_history"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.window_bytes"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 310,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.window_bytes"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_window_history_9"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 312,
+            "column" : 24,
+            "source_fragment" : "flow_window_history_9.read(meta.window_bytes, meta.flow_hash)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.total_bytes_history"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.total_bytes_history"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.window_bytes"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 313,
+            "column" : 24,
+            "source_fragment" : "meta.total_bytes_history = meta.total_bytes_history + meta.window_bytes"
           }
         }
       ]
     },
     {
-      "name" : "basic_trabalho2l249",
-      "id" : 15,
+      "name" : "basic_trabalho2l329",
+      "id" : 27,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1248,16 +2386,42 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 11,
+            "line" : 10,
             "column" : 23,
-            "source_fragment" : "0; // Baixa prioridade (Red) ..."
+            "source_fragment" : "0; // Baixa prioridade ..."
           }
         }
       ]
     },
     {
-      "name" : "basic_trabalho2l236",
-      "id" : 16,
+      "name" : "basic_trabalho2l331",
+      "id" : 28,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.new_dscp"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x22"
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 9,
+            "column" : 25,
+            "source_fragment" : "34; // Alta prioridade ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "basic_trabalho2l322",
+      "id" : 29,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1278,7 +2442,7 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 236,
+            "line" : 322,
             "column" : 20,
             "source_fragment" : "flow_window_start.write(meta.flow_hash, meta.window_start)"
           }
@@ -1301,9 +2465,55 @@
           ],
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 237,
+            "line" : 323,
             "column" : 20,
             "source_fragment" : "flow_byte_count.write(meta.flow_hash, meta.bytes_in_window)"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_current_window_idx"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.current_window_idx"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 324,
+            "column" : 20,
+            "source_fragment" : "flow_current_window_idx.write(meta.flow_hash, meta.current_window_idx)"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.flow_is_red"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.flow_hash"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.is_red"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 325,
+            "column" : 20,
+            "source_fragment" : "flow_is_red.write(meta.flow_hash, meta.is_red)"
           }
         }
       ]
@@ -1315,7 +2525,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 123,
+        "line" : 122,
         "column" : 8,
         "source_fragment" : "MyIngress"
       },
@@ -1326,7 +2536,7 @@
           "id" : 0,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 151,
+            "line" : 164,
             "column" : 10,
             "source_fragment" : "protocol_filter"
           },
@@ -1359,11 +2569,11 @@
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l197",
+          "name" : "tbl_basic_trabalho2l210",
           "id" : 1,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 197,
+            "line" : 210,
             "column" : 20,
             "source_fragment" : "hash(meta.flow_hash, ..."
           },
@@ -1374,11 +2584,98 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [11],
-          "actions" : ["basic_trabalho2l197"],
+          "action_ids" : [23],
+          "actions" : ["basic_trabalho2l210"],
           "base_default_next" : "node_6",
           "next_tables" : {
-            "basic_trabalho2l197" : "node_6"
+            "basic_trabalho2l210" : "node_6"
+          },
+          "default_entry" : {
+            "action_id" : 23,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l238",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 238,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_0.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [9],
+          "actions" : ["basic_trabalho2l238"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l238" : "node_27"
+          },
+          "default_entry" : {
+            "action_id" : 9,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l240",
+          "id" : 3,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 240,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_1.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [10],
+          "actions" : ["basic_trabalho2l240"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l240" : "node_27"
+          },
+          "default_entry" : {
+            "action_id" : 10,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l242",
+          "id" : 4,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 242,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_2.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [11],
+          "actions" : ["basic_trabalho2l242"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l242" : "node_27"
           },
           "default_entry" : {
             "action_id" : 11,
@@ -1388,11 +2685,272 @@
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l221",
-          "id" : 2,
+          "name" : "tbl_basic_trabalho2l244",
+          "id" : 5,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 221,
+            "line" : 244,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_3.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [12],
+          "actions" : ["basic_trabalho2l244"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l244" : "node_27"
+          },
+          "default_entry" : {
+            "action_id" : 12,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l246",
+          "id" : 6,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 246,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_4.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [13],
+          "actions" : ["basic_trabalho2l246"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l246" : "node_27"
+          },
+          "default_entry" : {
+            "action_id" : 13,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l248",
+          "id" : 7,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 248,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_5.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [14],
+          "actions" : ["basic_trabalho2l248"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l248" : "node_27"
+          },
+          "default_entry" : {
+            "action_id" : 14,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l250",
+          "id" : 8,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 250,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_6.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [15],
+          "actions" : ["basic_trabalho2l250"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l250" : "node_27"
+          },
+          "default_entry" : {
+            "action_id" : 15,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l252",
+          "id" : 9,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 252,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_7.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [16],
+          "actions" : ["basic_trabalho2l252"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l252" : "node_27"
+          },
+          "default_entry" : {
+            "action_id" : 16,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l254",
+          "id" : 10,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 254,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_8.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [17],
+          "actions" : ["basic_trabalho2l254"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l254" : "node_27"
+          },
+          "default_entry" : {
+            "action_id" : 17,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l256",
+          "id" : 11,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 256,
+            "column" : 28,
+            "source_fragment" : "flow_window_history_9.write(meta.flow_hash, meta.byte_count_current)"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [18],
+          "actions" : ["basic_trabalho2l256"],
+          "base_default_next" : "node_27",
+          "next_tables" : {
+            "basic_trabalho2l256" : "node_27"
+          },
+          "default_entry" : {
+            "action_id" : 18,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l261",
+          "id" : 12,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 261,
+            "column" : 52,
+            "source_fragment" : "="
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [19],
+          "actions" : ["basic_trabalho2l261"],
+          "base_default_next" : "tbl_basic_trabalho2l267",
+          "next_tables" : {
+            "basic_trabalho2l261" : "tbl_basic_trabalho2l267"
+          },
+          "default_entry" : {
+            "action_id" : 19,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l263",
+          "id" : 13,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 263,
+            "column" : 52,
+            "source_fragment" : "="
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [20],
+          "actions" : ["basic_trabalho2l263"],
+          "base_default_next" : "tbl_basic_trabalho2l267",
+          "next_tables" : {
+            "basic_trabalho2l263" : "tbl_basic_trabalho2l267"
+          },
+          "default_entry" : {
+            "action_id" : 20,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l267",
+          "id" : 14,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 267,
             "column" : 42,
             "source_fragment" : "= meta.current_time; ..."
           },
@@ -1403,25 +2961,25 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [9],
-          "actions" : ["basic_trabalho2l221"],
-          "base_default_next" : "node_9",
+          "action_ids" : [21],
+          "actions" : ["basic_trabalho2l267"],
+          "base_default_next" : "node_32",
           "next_tables" : {
-            "basic_trabalho2l221" : "node_9"
+            "basic_trabalho2l267" : "node_32"
           },
           "default_entry" : {
-            "action_id" : 9,
+            "action_id" : 21,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l225",
-          "id" : 3,
+          "name" : "tbl_basic_trabalho2l271",
+          "id" : 15,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 225,
+            "line" : 271,
             "column" : 45,
             "source_fragment" : "="
           },
@@ -1432,27 +2990,27 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [10],
-          "actions" : ["basic_trabalho2l225"],
-          "base_default_next" : "node_9",
+          "action_ids" : [22],
+          "actions" : ["basic_trabalho2l271"],
+          "base_default_next" : "node_32",
           "next_tables" : {
-            "basic_trabalho2l225" : "node_9"
+            "basic_trabalho2l271" : "node_32"
           },
           "default_entry" : {
-            "action_id" : 10,
+            "action_id" : 22,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l231",
-          "id" : 4,
+          "name" : "tbl_basic_trabalho2l277",
+          "id" : 16,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 231,
-            "column" : 44,
-            "source_fragment" : "= meta.current_time; ..."
+            "line" : 277,
+            "column" : 36,
+            "source_fragment" : "="
           },
           "key" : [],
           "match_type" : "exact",
@@ -1461,25 +3019,83 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [12],
-          "actions" : ["basic_trabalho2l231"],
-          "base_default_next" : "tbl_basic_trabalho2l236",
+          "action_ids" : [24],
+          "actions" : ["basic_trabalho2l277"],
+          "base_default_next" : "node_34",
           "next_tables" : {
-            "basic_trabalho2l231" : "tbl_basic_trabalho2l236"
+            "basic_trabalho2l277" : "node_34"
           },
           "default_entry" : {
-            "action_id" : 12,
+            "action_id" : 24,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l236",
-          "id" : 5,
+          "name" : "tbl_basic_trabalho2l283",
+          "id" : 17,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 236,
+            "line" : 283,
+            "column" : 49,
+            "source_fragment" : "= 0; ..."
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [26],
+          "actions" : ["basic_trabalho2l283"],
+          "base_default_next" : "node_36",
+          "next_tables" : {
+            "basic_trabalho2l283" : "node_36"
+          },
+          "default_entry" : {
+            "action_id" : 26,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l317",
+          "id" : 18,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 317,
+            "column" : 40,
+            "source_fragment" : "="
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [25],
+          "actions" : ["basic_trabalho2l317"],
+          "base_default_next" : "tbl_basic_trabalho2l322",
+          "next_tables" : {
+            "basic_trabalho2l317" : "tbl_basic_trabalho2l322"
+          },
+          "default_entry" : {
+            "action_id" : 25,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_basic_trabalho2l322",
+          "id" : 19,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 322,
             "column" : 20,
             "source_fragment" : "flow_window_start.write(meta.flow_hash, meta.window_start); ..."
           },
@@ -1490,25 +3106,25 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [16],
-          "actions" : ["basic_trabalho2l236"],
-          "base_default_next" : "node_12",
+          "action_ids" : [29],
+          "actions" : ["basic_trabalho2l322"],
+          "base_default_next" : "node_39",
           "next_tables" : {
-            "basic_trabalho2l236" : "node_12"
+            "basic_trabalho2l322" : "node_39"
           },
           "default_entry" : {
-            "action_id" : 16,
+            "action_id" : 29,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l243",
-          "id" : 6,
+          "name" : "tbl_basic_trabalho2l329",
+          "id" : 20,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 243,
+            "line" : 329,
             "column" : 38,
             "source_fragment" : "="
           },
@@ -1519,25 +3135,25 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [13],
-          "actions" : ["basic_trabalho2l243"],
+          "action_ids" : [27],
+          "actions" : ["basic_trabalho2l329"],
           "base_default_next" : "tbl_mark_dscp",
           "next_tables" : {
-            "basic_trabalho2l243" : "tbl_mark_dscp"
+            "basic_trabalho2l329" : "tbl_mark_dscp"
           },
           "default_entry" : {
-            "action_id" : 13,
+            "action_id" : 27,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
           }
         },
         {
-          "name" : "tbl_basic_trabalho2l246",
-          "id" : 7,
+          "name" : "tbl_basic_trabalho2l331",
+          "id" : 21,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 246,
+            "line" : 331,
             "column" : 38,
             "source_fragment" : "="
           },
@@ -1548,43 +3164,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [14],
-          "actions" : ["basic_trabalho2l246"],
+          "action_ids" : [28],
+          "actions" : ["basic_trabalho2l331"],
           "base_default_next" : "tbl_mark_dscp",
           "next_tables" : {
-            "basic_trabalho2l246" : "tbl_mark_dscp"
+            "basic_trabalho2l331" : "tbl_mark_dscp"
           },
           "default_entry" : {
-            "action_id" : 14,
-            "action_const" : true,
-            "action_data" : [],
-            "action_entry_const" : true
-          }
-        },
-        {
-          "name" : "tbl_basic_trabalho2l249",
-          "id" : 8,
-          "source_info" : {
-            "filename" : "basic_trabalho2.p4",
-            "line" : 249,
-            "column" : 38,
-            "source_fragment" : "="
-          },
-          "key" : [],
-          "match_type" : "exact",
-          "type" : "simple",
-          "max_size" : 1024,
-          "with_counters" : false,
-          "support_timeout" : false,
-          "direct_meters" : null,
-          "action_ids" : [15],
-          "actions" : ["basic_trabalho2l249"],
-          "base_default_next" : "tbl_mark_dscp",
-          "next_tables" : {
-            "basic_trabalho2l249" : "tbl_mark_dscp"
-          },
-          "default_entry" : {
-            "action_id" : 15,
+            "action_id" : 28,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -1592,10 +3179,10 @@
         },
         {
           "name" : "tbl_mark_dscp",
-          "id" : 9,
+          "id" : 22,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 252,
+            "line" : 334,
             "column" : 20,
             "source_fragment" : "mark_dscp(meta.new_dscp)"
           },
@@ -1621,10 +3208,10 @@
         },
         {
           "name" : "MyIngress.dscp_routing",
-          "id" : 10,
+          "id" : 23,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 176,
+            "line" : 189,
             "column" : 10,
             "source_fragment" : "dscp_routing"
           },
@@ -1664,10 +3251,10 @@
         },
         {
           "name" : "MyIngress.ipv4_lpm",
-          "id" : 11,
+          "id" : 24,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 163,
+            "line" : 176,
             "column" : 10,
             "source_fragment" : "ipv4_lpm"
           },
@@ -1708,7 +3295,7 @@
           "id" : 0,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 191,
+            "line" : 204,
             "column" : 12,
             "source_fragment" : "hdr.ipv4.isValid()"
           },
@@ -1731,7 +3318,7 @@
           "id" : 1,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 195,
+            "line" : 208,
             "column" : 20,
             "source_fragment" : "hdr.udp.isValid()"
           },
@@ -1746,7 +3333,7 @@
               }
             }
           },
-          "true_next" : "tbl_basic_trabalho2l197",
+          "true_next" : "tbl_basic_trabalho2l210",
           "false_next" : "MyIngress.dscp_routing"
         },
         {
@@ -1754,9 +3341,9 @@
           "id" : 2,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 219,
+            "line" : 233,
             "column" : 24,
-            "source_fragment" : "meta.window_start == 0 || meta.time_in_window > WINDOW_SIZE"
+            "source_fragment" : "meta.window_start == 0 || meta.time_in_window > WINDOW_SIZE_SHORT"
           },
           "expression" : {
             "type" : "expression",
@@ -1812,15 +3399,301 @@
               }
             }
           },
-          "true_next" : "tbl_basic_trabalho2l221",
-          "false_next" : "tbl_basic_trabalho2l225"
+          "true_next" : "node_7",
+          "false_next" : "tbl_basic_trabalho2l271"
         },
         {
-          "name" : "node_9",
+          "name" : "node_7",
           "id" : 3,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 229,
+            "line" : 237,
+            "column" : 28,
+            "source_fragment" : "meta.current_window_idx == 0"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x00"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l238",
+          "false_next" : "node_9"
+        },
+        {
+          "name" : "node_9",
+          "id" : 4,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 239,
+            "column" : 35,
+            "source_fragment" : "meta.current_window_idx == 1"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x01"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l240",
+          "false_next" : "node_11"
+        },
+        {
+          "name" : "node_11",
+          "id" : 5,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 241,
+            "column" : 35,
+            "source_fragment" : "meta.current_window_idx == 2"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x02"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l242",
+          "false_next" : "node_13"
+        },
+        {
+          "name" : "node_13",
+          "id" : 6,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 243,
+            "column" : 35,
+            "source_fragment" : "meta.current_window_idx == 3"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x03"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l244",
+          "false_next" : "node_15"
+        },
+        {
+          "name" : "node_15",
+          "id" : 7,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 245,
+            "column" : 35,
+            "source_fragment" : "meta.current_window_idx == 4"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x04"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l246",
+          "false_next" : "node_17"
+        },
+        {
+          "name" : "node_17",
+          "id" : 8,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 247,
+            "column" : 35,
+            "source_fragment" : "meta.current_window_idx == 5"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x05"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l248",
+          "false_next" : "node_19"
+        },
+        {
+          "name" : "node_19",
+          "id" : 9,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 249,
+            "column" : 35,
+            "source_fragment" : "meta.current_window_idx == 6"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x06"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l250",
+          "false_next" : "node_21"
+        },
+        {
+          "name" : "node_21",
+          "id" : 10,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 251,
+            "column" : 35,
+            "source_fragment" : "meta.current_window_idx == 7"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x07"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l252",
+          "false_next" : "node_23"
+        },
+        {
+          "name" : "node_23",
+          "id" : 11,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 253,
+            "column" : 35,
+            "source_fragment" : "meta.current_window_idx == 8"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x08"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l254",
+          "false_next" : "node_25"
+        },
+        {
+          "name" : "node_25",
+          "id" : 12,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 255,
+            "column" : 35,
+            "source_fragment" : "meta.current_window_idx == 9"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x09"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l256",
+          "false_next" : "node_27"
+        },
+        {
+          "name" : "node_27",
+          "id" : 13,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 260,
+            "column" : 28,
+            "source_fragment" : "meta.current_window_idx == 9"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.current_window_idx"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x09"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l261",
+          "false_next" : "tbl_basic_trabalho2l263"
+        },
+        {
+          "name" : "node_32",
+          "id" : 14,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 275,
             "column" : 24,
             "source_fragment" : "meta.bytes_in_window > THRESHOLD_PER_WINDOW"
           },
@@ -1834,21 +3707,21 @@
               },
               "right" : {
                 "type" : "hexstr",
-                "value" : "0x000003e8"
+                "value" : "0x00002710"
               }
             }
           },
-          "true_next" : "tbl_basic_trabalho2l231",
-          "false_next" : "tbl_basic_trabalho2l236"
+          "true_next" : "tbl_basic_trabalho2l277",
+          "false_next" : "node_34"
         },
         {
-          "name" : "node_12",
-          "id" : 4,
+          "name" : "node_34",
+          "id" : 15,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 241,
+            "line" : 281,
             "column" : 24,
-            "source_fragment" : "meta.last_violation == 0"
+            "source_fragment" : "meta.is_red == 1"
           },
           "expression" : {
             "type" : "expression",
@@ -1856,62 +3729,68 @@
               "op" : "==",
               "left" : {
                 "type" : "field",
-                "value" : ["scalars", "metadata.last_violation"]
+                "value" : ["scalars", "metadata.is_red"]
               },
               "right" : {
                 "type" : "hexstr",
-                "value" : "0x000000000000"
+                "value" : "0x01"
               }
             }
           },
-          "true_next" : "tbl_basic_trabalho2l243",
-          "false_next" : "node_14"
+          "true_next" : "tbl_basic_trabalho2l283",
+          "false_next" : "tbl_basic_trabalho2l322"
         },
         {
-          "name" : "node_14",
-          "id" : 5,
+          "name" : "node_36",
+          "id" : 16,
           "source_info" : {
             "filename" : "basic_trabalho2.p4",
-            "line" : 244,
-            "column" : 31,
-            "source_fragment" : "meta.current_time - meta.last_violation > PENALTY_TIME"
+            "line" : 316,
+            "column" : 28,
+            "source_fragment" : "meta.total_bytes_history <= THRESHOLD_PER_WINDOW"
           },
           "expression" : {
             "type" : "expression",
             "value" : {
-              "op" : ">",
+              "op" : "<=",
               "left" : {
-                "type" : "expression",
-                "value" : {
-                  "op" : "&",
-                  "left" : {
-                    "type" : "expression",
-                    "value" : {
-                      "op" : "-",
-                      "left" : {
-                        "type" : "field",
-                        "value" : ["standard_metadata", "ingress_global_timestamp"]
-                      },
-                      "right" : {
-                        "type" : "field",
-                        "value" : ["scalars", "metadata.last_violation"]
-                      }
-                    }
-                  },
-                  "right" : {
-                    "type" : "hexstr",
-                    "value" : "0xffffffffffff"
-                  }
-                }
+                "type" : "field",
+                "value" : ["scalars", "metadata.total_bytes_history"]
               },
               "right" : {
                 "type" : "hexstr",
-                "value" : "0x0000000f4240"
+                "value" : "0x00002710"
               }
             }
           },
-          "true_next" : "tbl_basic_trabalho2l246",
-          "false_next" : "tbl_basic_trabalho2l249"
+          "true_next" : "tbl_basic_trabalho2l317",
+          "false_next" : "tbl_basic_trabalho2l322"
+        },
+        {
+          "name" : "node_39",
+          "id" : 17,
+          "source_info" : {
+            "filename" : "basic_trabalho2.p4",
+            "line" : 328,
+            "column" : 24,
+            "source_fragment" : "meta.is_red == 1"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.is_red"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x01"
+              }
+            }
+          },
+          "true_next" : "tbl_basic_trabalho2l329",
+          "false_next" : "tbl_basic_trabalho2l331"
         }
       ]
     },
@@ -1920,7 +3799,7 @@
       "id" : 1,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 269,
+        "line" : 351,
         "column" : 8,
         "source_fragment" : "MyEgress"
       },
@@ -1936,7 +3815,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "basic_trabalho2.p4",
-        "line" : 281,
+        "line" : 363,
         "column" : 8,
         "source_fragment" : "update_checksum( ..."
       },

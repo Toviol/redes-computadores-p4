@@ -2,13 +2,13 @@
 
 -- Abrir o Mininet com 'make' e utilizar os 4 comandos a seguir:
 
-# Link de 2 Mbps
-s1 tc qdisc add dev s1-eth2 root tbf rate 2mbit burst 10kb latency 50ms
-s2 tc qdisc add dev s2-eth2 root tbf rate 2mbit burst 10kb latency 50ms
+# Link de 1 Mbps
+s1 tc qdisc add dev s1-eth2 root tbf rate 1mbit burst 10kb latency 50ms
+s2 tc qdisc add dev s2-eth2 root tbf rate 1mbit burst 10kb latency 50ms
 
-# Link de 300 kbps
-s1 tc qdisc add dev s1-eth3 root tbf rate 300kbit burst 10kb latency 50ms
-s2 tc qdisc add dev s2-eth3 root tbf rate 300kbit burst 10kb latency 50ms
+# Link de 150 kbps
+s1 tc qdisc add dev s1-eth3 root tbf rate 150kbit burst 10kb latency 50ms
+s2 tc qdisc add dev s2-eth3 root tbf rate 150kbit burst 10kb latency 50ms
 
 -- Em outro terminal, rode:
 
@@ -23,8 +23,12 @@ h1 sudo python3 send_two_flows.py --dst 10.0.2.2 --sport1 5000 --dport1 5001 --s
 
 --- SEGUNDO TESTE ---
 
-# alternativo com tcpdump
+-- Dentro do mininet, rode:
 
-# No Mininet:
-h2 sudo tcpdump -i h2-eth0 -vv -n udp port 5001 &
 h1 sudo python3 send_udp.py --dst 10.0.2.2 --sport 5000 --dport 5001 --count 50 --size 800 --rate 5
+
+--- TERCEIRO TESTE ---
+
+-- Para simular um fluxo UDP variado, rode dentro do Mininet:
+
+h1 sudo python3 send_variable_flow.py --dst 10.0.2.2 --count1 200 --size1 1472 --rate1 0 --count2 200 --size2 5 --rate2 0.8
