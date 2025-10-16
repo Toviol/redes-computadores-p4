@@ -133,9 +133,9 @@ actions {
 }
 registers {
   preamble {
-    id: 375868582
-    name: "MyIngress.flow_last_seen"
-    alias: "flow_last_seen"
+    id: 385246818
+    name: "MyIngress.flow_window_start"
+    alias: "flow_window_start"
   }
   type_spec {
     bitstring {
@@ -156,6 +156,21 @@ registers {
     bitstring {
       bit {
         bitwidth: 32
+      }
+    }
+  }
+  size: 8192
+}
+registers {
+  preamble {
+    id: 384328097
+    name: "MyIngress.flow_last_violation"
+    alias: "flow_last_violation"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 48
       }
     }
   }

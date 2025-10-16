@@ -12,7 +12,10 @@ const bit<6> DSCP_BE = 0;     // Baixa prioridade (Red)
 
 // Traffic monitoring parameters
 const bit<48> WINDOW_SIZE = 100000;  // 100ms em microsegundos
-const bit<32> THRESHOLD_PER_WINDOW = 10000; // 0.8 Mbps * 0.1s = 10.000 bytes -> 80.000 bits em 100 ms -> 800Kbps
+const bit<48> PENALTY_TIME = 1000000; // 10 janelas = 1 segundo (tempo para poder voltar para GREEN)
+const bit<32> THRESHOLD_PER_WINDOW = 1000; // 800 Kbps * 0.1s = 10.000 bytes em 100ms
+// Explicação: 800 Kbps = 800.000 bits/s = 100.000 bytes/s
+// Em 100ms (0.1s): 100.000 bytes/s * 0.1s = 10.000 bytes
 
 /*************************************************************************
 *********************** H E A D E R S  ***********************************
@@ -54,7 +57,9 @@ header udp_t {
 struct metadata {
     bit<32> flow_hash;
     bit<48> current_time;
-    bit<48> last_time;
+    bit<48> window_start;
+    bit<48> last_violation;
+    bit<48> time_in_window;
     bit<32> byte_count;
     bit<32> bytes_in_window;
     bit<6>  new_dscp;
@@ -120,8 +125,9 @@ control MyIngress(inout headers hdr,
                   inout standard_metadata_t standard_metadata) {
     
     // Registers para medição de tráfego por fluxo
-    register<bit<48>>(8192) flow_last_seen;   // Timestamp do último pacote
-    register<bit<32>>(8192) flow_byte_count;  // Contador de bytes na janela
+    register<bit<48>>(8192) flow_window_start;   // Timestamp do início da janela atual
+    register<bit<32>>(8192) flow_byte_count;     // Contador de bytes na janela atual
+    register<bit<48>>(8192) flow_last_violation; // Timestamp da última violação (para penalty)
     
     action drop() {
         mark_to_drop(standard_metadata);
@@ -201,29 +207,48 @@ control MyIngress(inout headers hdr,
                     // Obter timestamp atual (em microsegundos)
                     meta.current_time = standard_metadata.ingress_global_timestamp;
                     
-                    // Ler último timestamp e contador de bytes
-                    flow_last_seen.read(meta.last_time, meta.flow_hash);
+                    // Ler estado do fluxo
+                    flow_window_start.read(meta.window_start, meta.flow_hash);
                     flow_byte_count.read(meta.byte_count, meta.flow_hash);
+                    flow_last_violation.read(meta.last_violation, meta.flow_hash);
                     
-                    // Verificar se estamos dentro da janela de tempo
-                    if (meta.current_time - meta.last_time > WINDOW_SIZE) {
-                        // Janela expirou, resetar contador
+                    // Calcular tempo decorrido desde o início da janela
+                    meta.time_in_window = meta.current_time - meta.window_start;
+                    
+                    // Verificar se a janela atual expirou (passou 100ms)
+                    if (meta.window_start == 0 || meta.time_in_window > WINDOW_SIZE) {
+                        // Iniciar nova janela
+                        meta.window_start = meta.current_time;
                         meta.bytes_in_window = (bit<32>)hdr.ipv4.totalLen;
                     } else {
-                        // Dentro da janela, acumular bytes
+                        // Dentro da janela atual - acumular bytes
                         meta.bytes_in_window = meta.byte_count + (bit<32>)hdr.ipv4.totalLen;
                     }
                     
-                    // Atualizar registers
-                    flow_last_seen.write(meta.flow_hash, meta.current_time);
+                    // Verificar se excedeu o limiar nesta janela
+                    if (meta.bytes_in_window > THRESHOLD_PER_WINDOW) {
+                        // Violação! Marcar timestamp da violação
+                        meta.last_violation = meta.current_time;
+                        flow_last_violation.write(meta.flow_hash, meta.last_violation);
+                    }
+                    
+                    // Atualizar registers da janela
+                    flow_window_start.write(meta.flow_hash, meta.window_start);
                     flow_byte_count.write(meta.flow_hash, meta.bytes_in_window);
                     
-                    // Marcar DSCP com base no limiar
-                    if (meta.bytes_in_window > THRESHOLD_PER_WINDOW) {
-                        meta.new_dscp = DSCP_BE; // Red
+                    // Decidir DSCP: Uma vez em RED, só volta para GREEN após PENALTY_TIME
+                    // sem violações (10 janelas = 1 segundo)
+                    if (meta.last_violation == 0) {
+                        // Nunca violou - GREEN
+                        meta.new_dscp = DSCP_AF41; // Green - Alta prioridade
+                    } else if (meta.current_time - meta.last_violation > PENALTY_TIME) {
+                        // Passou tempo suficiente sem violar - pode voltar para GREEN
+                        meta.new_dscp = DSCP_AF41; // Green - Alta prioridade
                     } else {
-                        meta.new_dscp = DSCP_AF41; // Green
+                        // Ainda em período de penalidade - RED
+                        meta.new_dscp = DSCP_BE; // Red - Baixa prioridade
                     }
+                    
                     mark_dscp(meta.new_dscp);
                 }
                 
