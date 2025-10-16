@@ -19,7 +19,7 @@ sudo wireshark
 
 -- Dentro do mininet, rode:
 
-h1 sudo python3 send_two_flows.py --dst 10.0.2.2 --sport1 5000 --dport1 5001 --size1 5 --rate1 1 --sport2 6000 --dport2 6001 --size2 1472 --rate2 5 --count 200
+h1 sudo python3 send_two_flows.py --dst 10.0.2.2 --sport1 5000 --dport1 5001 --size1 5 --rate1 1 --sport2 6000 --dport2 6001 --size2 1472 --rate2 0 --count 200
 
 --- SEGUNDO TESTE ---
 
@@ -31,4 +31,4 @@ h1 sudo python3 send_udp.py --dst 10.0.2.2 --sport 5000 --dport 5001 --count 50 
 
 -- Para simular um fluxo UDP variado, rode dentro do Mininet:
 
-h1 sudo python3 send_variable_flow.py --dst 10.0.2.2 --count1 200 --size1 1472 --rate1 0 --count2 200 --size2 5 --rate2 0.8
+h1 sudo python3 send_variable_flow.py --dst 10.0.2.2 --sport 7000 --dport 7001 --count1 200 --size1 1472 --rate1 0 --count2 200 --size2 5 --rate2 0.8
