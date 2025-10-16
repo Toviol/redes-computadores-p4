@@ -42,16 +42,14 @@ def main():
     print(f"  Source port: {args.sport}")
     print(f"  Destination port: {args.dport}")
     print(f"  Payload size: {args.size} bytes")
-    print(f"  Rate: {args.rate if args.rate > 0 else 'unlimited'} Mbps")
+    print(f"  Target Rate: {args.rate if args.rate > 0 else 'unlimited'} Mbps")
     print("-" * 60)
     
-    # Calculate inter-packet delay if rate is specified
     if args.rate > 0:
-        # Total packet size (approximation: Ethernet + IP + UDP + Payload)
-        total_size = 14 + 20 + 8 + args.size  # bytes
+        total_size = 14 + 20 + 8 + args.size  
         bits_per_packet = total_size * 8
-        target_bps = args.rate * 1_000_000  # Convert Mbps to bps
-        delay = bits_per_packet / target_bps  # seconds
+        target_bps = args.rate * 1_000_000  
+        delay = bits_per_packet / target_bps  
     else:
         delay = 0
     
@@ -73,8 +71,7 @@ def main():
     actual_rate = (args.count * (14 + 20 + 8 + args.size) * 8) / elapsed / 1_000_000
     
     print("-" * 60)
-    print(f"Done! Sent {args.count} packets in {elapsed:.2f} seconds")
-    print(f"Actual rate: {actual_rate:.2f} Mbps")
+    print(f"Done! Sent {args.count} packets")
 
 
 if __name__ == '__main__':
