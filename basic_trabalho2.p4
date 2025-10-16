@@ -205,7 +205,7 @@ control MyIngress(inout headers hdr,
                 
                 // Medição de tráfego
                 if (hdr.udp.isValid()) {
-                    // Calcular hash do fluxo (5-tuple)
+                    // Calcular hash do fluxo
                     hash(meta.flow_hash,
                          HashAlgorithm.crc32,
                          (bit<32>)0,
